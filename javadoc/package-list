@@ -1,0 +1,16 @@
+demos.antiSQLInjection
+demos.antiSQLInjection.test
+gudusoft.gsqlparser
+gudusoft.gsqlparser.nodes
+gudusoft.gsqlparser.nodes.mdx
+gudusoft.gsqlparser.nodes.oracle
+gudusoft.gsqlparser.stmt
+gudusoft.gsqlparser.stmt.db2
+gudusoft.gsqlparser.stmt.informix
+gudusoft.gsqlparser.stmt.mdx
+gudusoft.gsqlparser.stmt.mssql
+gudusoft.gsqlparser.stmt.mysql
+gudusoft.gsqlparser.stmt.oracle
+gudusoft.gsqlparser.stmt.postgresql
+gudusoft.gsqlparser.stmt.teradata
+gudusoft.gsqlparser.util

@@ -1,0 +1,1051 @@
+version history of general sql parser:
+======================================
+Java version 1.4.6.1(2013-06-05)
+* fix a bug treat column alias in group by clause as a column.
+
+Java version 1.4.6.0(2013-05-31)
+* [Oracle] support member condition in PLSQL
+* [Oracle] support iS not empty predicate
+* [Oracle] fix a bug can't get raw statement correctly inside create package.
+
+Java version 1.4.6.0(2013-05-29)
+* [MySQL] support ( table_references ) in table_factor
+
+Java version 1.4.5.9(2013-05-17)
+* [Oracle] support subquery in pivot_in_clause
+* [Oracle] support chr function with using NCHAR_CS parameter
+* [MySQL] support into clause at the end of select statement
+* [MySQL] fix a bug can't parse CAST(cnt AS DECIMAL)
+* [Oracle] add support for natural full|right|left [outer] join
+* [Oracle] add support for getRestrictionClause() in TCreateViewSqlStatement 
+* [Oracle] support natural inner join
+
+version Java 1.4.5.8(2013-04-18)
+* [MySQL] MySQL comment requires a space after the initial "--", able to detect this syntax error
+* [MySQL] support delimter command
+* [Teradata] support volatile keyword in create table statement
+* [mssql] fix a bug not parse truncate table statment inside IF statement
+
+version Java 1.4.5.7(2013-04-01)
+* [DB2] support commit statement inside loop
+* [DB2] support create or replace clause in create trigger statement.
+* [Oracle] More accurate to report datatype in index by clause.
+* add a new interface: ITokenHandle, this interface can be used to handle source token 
+	when parse sql query using TGSqlParser. each source token created by lexer can be
+	handled before send to parser, this enable you to control how a source token should
+	be processed by a parser by resetting tokencode of a TSourceToken object.
+
+version Java 1.4.5.6(2013-03-27)
+* [DB2] able to regonize stored procedure without a speical terminator.
+* [Oracle] support  'PIPELINED USING schema.implementation type' and 'AGGREGATE USING schema.implementation type' in create function
+* [Oracle] support pipelined keyword in create function
+* [Oracle] fix a bug that handle pivot clause.
+	
+version Java 1.4.5.5(2013-03-26)
+* [MySQL] support describe statement and adding new class: TDescribeStmt
+* [MySQL] support prepare statement and adding new class: TMySQLPrepareStmt
+* [MySQL] support truncate table statement 
+* [MySQL] support exist condition in select list
+* [DB2] support qualified name in SPECIFIC clause in create procedure
+* [DB2] support restart with clause in identity alteration
+* [DB2] fixed a error can't parse signed number in identity options
+* [DB2] able to ignore syntax error in create index statement
+
+version Java 1.4.5.4(2013-03-22)
+* [DB2] support select * from s.t1 FOR UPDATE 
+* [Oracle] fix a bug doesn't regonize datatype in index by clause.
+* [Oracle] support create package body without declare section
+* [Oracle] able to access detailed argument of xmlelement function using getArgs() and getValueExprList()
+* [Oracle] fix a bug can't process <>? correctly
+* [Oracle] fix a bug can't process <=? correctly
+* [MySQL] support MySQL's VALUE keyword (it is a synonym for VALUES).
+
+version Java 1.4.5.2(2013-03-14)
+* fix a bug that raise exception when set the meta database processing some SQL statement.
+* rename TMergeInsertClause.deleteWhereClause to TMergeInsertClause.insertWhereClause
+* rename TMergeInsertClause.getDeleteWhereClause to TMergeInsertClause.getInsertWhereClause 
+
+version Java 1.4.5.2(2013-02-22)
+* [Teradata] support Implied CAST like this {(t1.ACCT_OPEN_D (FORMAT 'YYYYMMDD')   (CHAR(8)) )}
+* [Mdx] support scope statement without statement list after
+* [Teradata] support NOT CASESPECIFIC datatype Attribute
+* [Teradata] fix a bug can't parse character set datatype
+* [Oracle] support is empty collection operator in sql statement
+* [Oracle] support the use of the ansi lateral operator
+
+version Java 1.4.5.1(2013-02-19)
+* [Oracle] fix a bug doesn't support connect_by_root operator in where condition
+
+
+version Java 1.4.5.1(2013-02-18)
+* [Oracle]  improved support for unpivot clause.
+* [Oracle] support collection operator: multiset union/intersect/except
+* [Oracle] support is empty collection operator
+* [Oracle] support interval expression within the scope of an over function.
+* [Oracle] support "order by" clause within the scope of an xmlagg function call.
+
+version Java 1.4.5.1(2013-02-17)
+* [Oracle] fix a problem to parse 1..:bl_test
+
+* [Oracle] able to get detailed information about invoker rights clause, 
+	DETERMINISTIC, parallel enable clause and result cache clause.
+	
+* [Oracle] introduce new java class: TParallelEnableClause, TResultCacheClause,
+	TStreamingClause and TInvokerRightsClause
+
+version Java 1.4.5.0(2013-02-14)
+* [Oracle] support a "connect by" clause follows a "group by" clause.
+* [Oracle] 'type' can be column name 
+* [Oracle] able to handle the order by clause in the context of a collect function
+* [Oracle] fix a bug can't process substition variable correctly inside quote.
+
+version Java 1.4.4.9(2013-02-08)
+* [Teradata] support expression list in group by clause like this: GROUP BY (1,2,3,4,5,6,7,8,9,10,11,12)
+
+version Java 1.4.4.8(2013-02-06)
+* [Oracle] fix a bug that natural can't be used as database object name;
+* [Oracle] 'type' can be column name in for update clause
+* [Oracle] fix a bug that doesn't recognize '-', '+' as a unary operator unless it is preceded by whitespace
+* [Oracle] allowing an alias ('t') to follow a sample block when the seed specification is missing.
+
+version Java 1.4.4.8(2013-02-05)
+* add new enum type:
+	public enum EAggregateType {
+	    none,
+	    all,
+	    distinct,
+	    unique,
+	}
+
+* able to get all/distinct/unqiue information in aggregate function by using TFunctionCall.getAggregateType()
+* [Oracle] support explain plan statement
+* [Oracle] keyword full can be table name and table alias.
+* [Oracle] allowing a sample block to contain two parameters when the word 'block' appears after the word 'sample'.
+
+version Java 1.4.4.7(2013-01-31)
+* [Oracle] support the "the" clause for querying nested tables
+* [Oracle] fix a bug can parse this expression: select 1+-.9 from dual;
+* [Oracle] support "select from (tablename)" syntax. 
+* [Oracle] fix a bug can't handle predicate like this: 1<-:a;
+* [Oracle] support the xml object-like interface.
+* [Oracle] support the "insert into table(subquery) alias" syntax.
+* [Oracle] fix a bug can't support the predicate 1>=-:a
+* [Oracle] support naming arguments for user-defined functions
+* [Oracle] support placeholder expression in translate function.
+* change definition of  public ArrayList getSyntaxErrors() to  public ArrayList <TSyntaxError> getSyntaxErrors()   
+* [demo] improve analyzeScript.java to add support for create index statement.
+
+version Java 1.4.4.6(2013-01-30)
+* [Oracle] fix a bug can't parse place holder correctly in into clause and where in condition.
+* [Oracle] support the partition clause for delete
+* [Oracle] permit whitespace between the two '|' characters in the string concatenate operator
+* [Oracle]  keyword: 'right' can be a column name
+* [Oracle] support the 'with' clause in an insert statement
+* [Oracle] support keyword likec/like2/like4 in like condition
+* [Oracle] able to consider 'unique' to be an alias for 'distinct' in aggregate function.
+* [Oracle] able to consider 'return' to be an alias for 'returning' in return clause
+* [Oracle] support partition clause in insert statement
+* [Oracle] support xmlforest
+* [Oracle] support xmlroot, XMLSERIALIZE, XMLELEMENT and XMLATTRIBUTES.
+* [Oralce] support fully qualified column names: user.table.column in insert column list.
+* [Oracle] support skip locked in for update clause.
+* [Oracle] fix a bug can't regonize != if follows by - diretly.
+* [Oracle] fix a bug lexer can't tokenize host variable start with number in some place.
+* [Oracle] support nested subquery in from clause.
+* [Oracle] support syntax like this: update abc set (a) = 1;
+* [Oralce] support syntax like sample(1,2)
+* [plsql] recognize nvarchar datatype correctly
+
+
+version Java 1.4.4.5(2013-01-28)
+* fix a bug can't parse merge statement without merge_update_clause/merge_insert_clause
+* fix a bug in merge statement that liste table twice
+
+version Java 1.4.4.5(2013-01-25)
+* [Informix] support following SQL statements.
+	select/delete/insert/update/merge/truncate
+	alter index/sequence/table
+	create index/row type/sequence/synonym/table/view
+	drop index/row type/sequence/synonym/table/view
+	rename column/table/sequence/synonym
+	
+
+* [PostgreSQL] fix a bug can't handle escape character \ in string literal.
+
+version Java 1.4.4.5(2013-01-24)
+* introce new class: TDropSynonymStmt, TDropSequenceStmt
+* create new class TCreateSequenceStmt to replace TOracleCreateSequenceStmt
+* create new class TCreateSynonymStmt to replace TOracleCreateSynonymStmt
+
+version Java 1.4.4.4(2013-01-22)
+* [Oracle/Informix] add THierarchical.isNoCycle() to get NOCYCLE keyword in hierarchical clause of select statement.
+* [Teradata] fix a bug can't parse select statement start with ( sel ... )
+* [Teradata] support empty expression list () in IN expression.
+
+version Java 1.4.4.3(2013-01-16)
+* [plsql] full parse tree of merge statement inside stored procedure is available
+* [plsql] support LANGUAGE JAVA NAME in procedure specification in create package
+* [MDX] support create set syntax
+
+
+version Java 1.4.4.3(2013-01-14)
+* [plsql] fix a bug can't recognize plsql datatype: SIGNTYPE
+
+version Java 1.4.4.2(2013-01-12)
+* [Oracle] support pivot clause
+* [plsql] recognize following plsql datatype more accurate:  NATURALN, POSITIVE, POSITIVEN, SIGNTYPE, SIMPLE_INTEGER, DOUBLE_PRECISION, STRING and BOOLEAN.
+* [plsql] able to parse call spec of language C correctly.
+* [Oracle] support for update clause before order by clause.
+
+
+version Java 1.4.4.0(2012-12-04)
+* [Oracle] support xmlcast and xmltable function
+* [Oracle] support outer join in table collection expression
+* [Oracle] support select statement around by multi-level parenthesis in create view statement
+* [Oracle] fix a bug can't parse sysdate-?, sysdate*?,sysdate/? correctly.
+* [demo] able to analyze Insert statement in demos.analyzescript
+
+
+version Java 1.4.3.9(2012-11-22)
+* [sql formatter] fix a bug can't hanlde single line comment (--) after/before comma in select list
+
+version Java 1.4.3.9(2012-11-19)
+* [Oracle] fix a bug can't parse sysdate+? correctly.
+
+version Java 1.4.3.8(2012-11-14)
+* [DB2] fix a bug can't parse a !=-9
+* [DB2] support day keyword after function call.
+* [DB2] support IN keyword as table name
+	
+version Java 1.4.3.7(2012-11-13)
+* [DB2] able to parse main body of create table statement with select statement if other clause can't be parsed correctly.
+* [DB2] support create summary table syntax
+* [DB2] support OR REPLACE clause in create view statement. (new in V9.7)
+
+version Java 1.4.3.7(2012-11-12)
+* [Teradata] support syntax like timestamp(6)
+* [netezza] support tablename.* 
+
+version Java 1.4.3.7(2012-11-1)
+* [demo] add a new demo sqltranslator, start to support sql translation among different database vendors.
+* [demo] rewrite demo removeCondition
+* able to parse main body of create table statement if storage or other property can't be parsed correctly.
+* [SQL Server] fix a bug that throw unhandled exception while parse some syntax invalid SQL.
+* [SQL Server] more accurate report while if found syntax error
+* [Oracle] add new class TObjectAccess that represents object access expression when expression type is object_access_t.
+
+
+version Java 1.4.3.7(2012-10-20)
+* [Oracle] introduce TCreateViewSqlStatement.getStForce() and getStReplace()
+* [MySQL] support ON DUPLICATE KEY UPDATE in insert statement.
+
+version Java 1.4.3.6(2012-10-08)
+* [MySQL] support identifier start with number
+* [Netezza] support function: trim(arg1, arg2)
+* [Oracle] able to parse scripts correctly even if there are no / betweeen plsql block and select statement.
+* [Oracle] support EXTRACT function in XML document
+
+version Java 1.4.3.5(2012-09-27)
+* [Oracle] support PRAGMA INTERFACE
+* [Oracle] fix a bug can't handle TRANSLATE function correctly.
+
+version Java 1.4.3.5(2012-09-26)
+* [Teredata] support collect statistics statement.
+
+version Java 1.4.3.5(2012-09-25)
+* [Teredata] support DEL keyword in delete statement.
+* [Teredata] fix a bug can't support 'X' literal.
+* [Teradata] support syntax of put group by clause after select list directly.
+
+version Java 1.4.3.4(2012-09-21)
+* [Sybase] support paritial parsing inside stored procedure.
+
+version Java 1.4.3.4(2012-09-13)
+* [Sybase] support noholdlock/holdlock table hint
+* [Sybase] able to support hint like this: from TNL tnl1 (index 1)		
+* [Sybase] support Schema5.Table1.Column1 in insert column clause.
+
+version Java 1.4.3.3(2012-09-12)
+* EExpressionType.group_t not used since 1.4.3.3.
+* TExpression.getInExpr() not used since 1.4.3.3, use getRightOperand() instead
+* TInExpr not used since 1.4.3.3, replaced by TExpression
+* TGroupingExpressionItemList not used since 1.4.3.3, replaced by TExpressionList
+* TGroupingExpressionItem not used since 1.4.3.3, by TExpression
+ 
+
+version Java 1.4.3.3(2012-09-07)
+* able to get comparision operator token via getOperatorToken 
+* add public void accept(TParseTreeVisitor v) to TTruncateStatement
+* [Oracle] support access to multidimensional arrays such as array(x)(y)(z).
+* [SQL Server] support Compound Assignment Operators in set clause of update statement.
+* support cte with merge statement
+
+version Java 1.4.3.3(2012-09-06)
+* [Oracle] keyword 'type' can be used as column name.
+
+version Java 1.4.3.2(2012-09-05)
+* fix a bug when traverse in condition via inOrderTraverse/preOrderTraverse/postOrderTraverse method
+  this bug was introduced in v1.4.3.0
+
+version Java 1.4.3.1(2012-08-31)
+* able to link columns to CTE table correctly.
+* introduce a new method TGSqlParser.checkSyntax
+
+version Java 1.4.3.0(2012-08-26)
+* [changes]	 static fields TFunctionCall.fntXXX replaced by EFunctionType. 
+* [changes]	 static fields TTypeName.lfdXXX replaced by EDataType.
+* [changes]	 static fields TExpression.XXXOperator replaced by EExpressionType
+	 check Deprecated API in JavaDoc: javadoc/deprecated-list.html for detailed information.
+* [changes]  expressionType in TExpression.setExpressionType(int expressionType) change from int to EExpressionType
+* [changes]	 return value of int TExpression.getExpressionType() change from int to EExpressionType
+
+
+version Java 1.4.3.0(2012-08-20)
+* add new enum value of EDbVendor : dbvansi,dbvodbc
+
+version Java 1.4.3.0(2012-08-09)
+* change type of TTypeName.datatypeAttributeList from TDatatypeAttributeList to TPTNodeList <TDatatypeAttribute> 
+
+
+version Java 1.4.2.9(2012-08-02)
+* make lexer in TGSqlParser public available: TGSqlParser.getFlexer()
+* public int TCustomLexer.iskeyword(String str) can be used to check whether a string is a keyword.
+  return value > 0 means it's a keyword of targeted database.
+
+
+version Java 1.4.2.8(2012-07-20)
+* [Sybase] able to recognize contract as table/colum name
+* [Oracle] support use of an IN keyword followed by a string literal like source_entity_cd IN 'D7'
+* [DB2] fix a bug can't handle qualified name after NEXT VALUE FOR
+* [Sybase] support set @AccountNumber=NULL, @AccountSystem=NULL, @retval=0
+* able to access GROUP BY, HAVING keyword in TGroupBy class
+* add accept method for class: TArrayAccess, TGroupingSet, TGroupingSetItem, TRollupCube and TOracleCreateSynonymStmt.
+
+version Java 1.4.2.7(2012-07-13
+* [DB2] support named parameter like: CALL TEST2( parm1=>0, parm2=>'EURO'))
+
+version Java 1.4.2.7(2012-07-09)
+* [Teradata] support not null constraints in create table.
+* [Oracle] support alter session set NLS_TERRITORY=AMERICA; 
+
+version Java 1.4.2.6(2012-06-20)
+* [MySQL] fixed a bug introduce in V1.4.2.5 to support parameter like this @`a`
+
+version Java 1.4.2.5(2012-06-19)
+* un-qualified column in subquery able to link up level table if it's in select list
+* [MySQL] support parameter like this @`a`
+* [Teradata] support ${XXXDB} as an identifier 
+* [SQL Server] support SQLCMD variable by treat it as an identifier 
+
+version Java 1.4.2.4(2012-06-11)
+* [MySQL] support call statement, add new class: TMySQLCallStmt
+* [DB2] support default keyword in parameters of procedure/function.
+* [DB2] support call function without parameters like this: CALL test2()
+* [DB2] support name parameters like CALL FOO (parm1=10, parm2=>20, parm3=>30)
+	
+version Java 1.4.2.3(2012-06-05)
+* [Teradata] support qualified name like this: dbname..tablename
+* [Oracle] able to parse the Package Declaration and Package Body that written in the same file, 
+	without need to be separated by delimiter character ¡®/¡¯. 
+
+version Java 1.4.2.2(2012-05-31)
+* [netezza] support next [integer expression] value for <sequence name>
+
+version Java 1.4.2.1(2012-05-23)
+* fix a bug that treats level keyword in oracle as a physical column
+* fix a bug that column alias in order by clause will be treated as a physical column
+* change TBaseType.trial_editoin to full_edition.
+* fix a bug can't recoginze datetime as TTypeName.lfdDatetime correctly
+
+
+version Java 1.4.2.0(2012-05-15)
+* All available expression type constant field values of gudusoft.gsqlparser.nodes.TExpression was documented.
+* fix a bug that TInsertSqlStatement.getInsertToken() return null when process Oracle multi table insert statement.
+* able to access syntax errors by calling TGSqlParser.getSyntaxErrors() which returns list of TSyntaxError
+* add a new demo: columnImpact analysis
+
+[version Java 1.4.1.9][2012-05-11]
+* [Oracle] support multi table insert.
+* [MySQL] fixed a bug can't list in/out mode of function/procedure parameters.
+* add accept method to support preVisit and postVisit for the 
+	TOracleExecuteProcedure,TOracleCommentOnSqlStmt,TOracleCreateSynonymStmt
+	
+[version Java 1.4.1.8][2012-05-09]
+* [Oracle] support truncate table 
+* able to get table information from TCustomSqlStatement.tables for alter table, truncate table and drop table statement.
+* [MySQL] support [DEFINER = { user | CURRENT_USER }] in create procedure/function/trigger
+
+
+[version Java 1.4.1.7][2012-05-06]
+* [oracle] support execute procedure command, introduce a new class: TOracleExecuteProcedure
+* fix a bug can't use TJoin.setString
+* [db2] support alter table alter column drop identity|default
+* [db2] support alter table drop column.
+* [db2] case keyword can be used as table name.
+* [sql server] able to get detailed table hint information.
+* able to add a new order by clause if it is not already exist.
+* [sybase] had a dedicated engine now.
+* [sybase] support lock allpages in create table.
+* [sybase] support || operator
+
+[version Java 1.4.1.4][2012-04-01]
+* add public interface IMetaDatabase to help SQL parser to determine relationship of column and tables.
+  user can implements IMetaDatabase to provide detailed meta information from database.
+  
+* [MySQL] add support for Automatic Initialization and Updating for TIMESTAMP
+* typo: type_table_constarint renamed to type_table_constraint
+
+
+[version Java 1.4.1.3][2012-03-21]
+* Fix a bug can't add where clause at the end of sql correctly.
+* introduce a new method: public TTableElementList getTableElementList() represents add <column|constraint>[,...n] clause in alter table statement.
+  public TConstraintList getConstraintList() and public TColumnDefinitionList getColumnDefinitionList() in class TAlterTableOption 
+  not used to represents column|constraint list in add clause of alter table statement.
+
+* fix a bug that subquery in exist condition not parsed in if statement
+* fix a tokenlize error if only a single update statement in if statement
+* support NOT FOR REPLICATION in foreign key ... reference clause of table constraint
+
+[version Java 1.4.1.2][2012-03-12]
+* able to get cursor name in declare cursor statement.
+* support join clause in update statement.
+* TMssqlDropDbObject includes full information about drop procedure/function/trigger
+* use key_actions which is type of TPTNodeList  to represents all information of key action clause in constraints
+* able to get database name in sql server: use dbname statement.
+* [oracle] support siblings keyword of  order by clauses.
+* fix a bug can't parse condition if there is no space between = and ?.
+* [MySQL] support relpace into statement
+* [MySQL] support ignore keyword in insert statement
+* [MySQL] support multi \ escape character in literal
+* fix a null bug when calling TSelectSqlStatement.getSelectDistinct() of sql server statement
+* default setting of html output set correctly.
+* [oracle] support integer with length definition
+* [oracle] support PARALLEL_ENABLE put after DETERMINISTIC
+* [oracle] support memeber of operator
+* [oracle] support parenthesis around group by item
+* [MySQL] support mysql STRAIGHT_JOIN join
+
+
+[version Java 1.4.0.8][2012-02-07]
+* support MDX, fully access parse tree nodes, check demos\visitors\toXml.java for detailed information.
+* start to support html output of formatted sql
+* [oracle] support String/Integer with length definition
+* [oracle] support PARALLEL_ENABLE put after DETERMINISTIC
+* [oracle] support memeber of operator
+* [oracle] support parenthesis around group by item
+* [oracle] support plsql read from array of array
+* [mysql] support  STRAIGHT_JOIN join syntax
+* [mysql] full outer join is not valid in mysql.
+* [teradata] support quaify clause after from clause directly.
+* [teradata] database/table/view keyword can be omitted in locking clause.
+* [netezza] suppot exclusion clause.
+* [mysql] support BTREE/HASH in alter table add index statement.
+* [mysql] introduce TMySQLCreateTableOption to get create table option easily.
+* fix a typo: 	gudusoft.gsqlparser.pp.stmtformattor.FormattorFactory; o -> e (stmtformattor.FormattorFactory)
+* [mysql] able to get full parse tree information of drop table correctly.
+* [sql server] able to support sql server single quote escape
+* able to get table name, colum list and index type for create index statement in all supported databases.
+* [oracle] able to access renamed table name via TAlterTableOption.
+* enhanced TAnalyticFunction class to support getKeepDenseRankClause, getOrderBy and getPartitionBy_ExprList.
+* [netezza] fix a bug can't tokenlize identifier start with $ character.
+* [oracle pl/sql] support language java in procedure inside package body
+* CTE can be parsed correctly in subquery.
+
+======================================
+[version Java 1.4.0.3][2012-01-10]
+* support MDX, syntax check only.
+* support Netezza SQL, fully supported statement: select/insert/delete/update/truncate/create view/create table
+* support this Oracle sql: SELECT B.* FROM ((SELECT 2 FROM DUAL) B)
+* fix a bug in teradata, with check option don't had start and end token.
+* add TCTE.getPreparableStmt, so it will return one of following statement: subquery/insert/update/delete
+* support wrapped Oracle plsql
+* support "-" character in identifier of DB2.
+* support having clause without group by clause
+* support execute_immediate_statement in forall statement of Oracle plsql.
+* able to recognize connect sqlplus command if it after a sql statement not ended with semicolon.
+* rewrite TParseTreeNode.toString() method, make it more robust to modify parse tree node.
+* Introduce  public String TTable.getFullNameWithAliasString()
+* AND,OR,NOT keyword in expression  can be obtained from getOperatorToken() of TExpression
+
+
+======================================
+[version Java 1.3.8][2011-11-29]
+* support length of long datatype of Oracle.
+* fix a bug that can't handle Oracle substitution variable that followed with semicolon.
+* support dynamic string in open cursor of Oracle.
+* add 'accept' method for class:	TViewAliasClause,	TViewAliasItem,	TViewAliasItemList.
+* support drop Public synonym
+* able to handle nested procedure/function correctly in Oracle PLSQL package.
+* fix a bug that after parse this sql: SELECT 'Test' FROM dual, System.out.println(table.toString()); will raise an null exception.
+* support qualified type name of DB2.
+* support period function of Teradata:  INTERVAL (period_expression) interval_qualifier
+* support new logical predicates of Teradata: IS UNTIL_CHANGED/IS NOT UNTIL_CHANGED
+* columns in SQL Server OGC Methods on Geography Instances will be recoginzed correctly.
+* offset and row count of limit clause of MySQL will be handled correctly.
+* able to get oracle hint from select statement.
+* join clause in a hiberarchy level processed correctly.
+
+
+[version Java 1.3.4][2011-07-28]
+* support merge statement of Oracle, SQL Server and DB2.
+
+[version Java 1.3.3]
+* support function call in IN condition.
+
+
+[version Java 1.3.1][2011-06-23]
+* support postgresql(select/insert/delete/update/create table/create view)
+* in SQL statement: select * from tab, * was treated as a column name of tab.
+* column a,b,c in this SQL statement was treated as un-determined of tableB
+	SELECT a, b, c
+	FROM tableB, tableA
+* better support to parse plsql package
+* plsql, support label before a function call
+* support plsql inner procedure
+* oracle, support concatenating two strings (or a string and a variable) in an open cursor statement.
+* oracle, support l_val(1) in using clause
+* oracle, enhanced support for table variable
+* add accept() method for TParameterDeclaration and TParameterDeclarationList
+* add missing getters : getExpr(), getRollupCube(), and  getGroupingSet() for TGroupByItem
+* oracle, support $ in bind variable
+* oracle, support pl/sql code calling a java method.
+* microsoft access, fully support DROP TABLE statement
+* add labelName and endlabelName property in TPlsqlStmt,
+* add labelName and endlabelName property in TStatementSqlNode, TCustomSqlStatement
+* add labelName property in  TCustomSqlStatement
+* add gotolabelName property in  TPlsqlGotoStmt
+* add exitlabelName property in  TPlsqlExitStmt 
+* oracle, fix a bug than can't support when condition in create trigger statement.
+* oracle, support float number: 1.0E28 in MAXVALUE clause of create sequence SQL statement.
+
+[version Java 1.2.9][2011-06-07]
+* db2, support with check option.
+* db2, fix a bug that select statement with "with clause" can't be used in create view statement.
+* teradata, group by clause can appeared before where clause.
+* teradata, with clause can appeared before order by clause.
+* teradata, support create/replace view statement.
+* teradata, fix a bug not support SEL keyword.
+* teradata, support entire LOCKING/LOCK clause.
+* teradata, support named alias like: 
+	SELECT Name, ((Salary + (YrsExp * 200))/12) (NAMED Projection)
+	FROM Employee
+	WHERE DeptNo = 600 AND Projection < 2500;
+* teradata, support PERIOD Functions and Operators.
+* introduce a new property TObjectName.isTableDetermined().
+* Introduce a new method TGSqlParser.setSqlInputStream(InputStream sqlInputStream), able to set input sql via InputStream.
+
+
+[version Java 1.2.6][2011-05-04]
+* fix a bug in demo: columnsInResultColumn, that can't find column in function arguments.
+* [changes] replace following constant integer with enum type: ETableSource
+
+public class TFromTable
+    public final static int ftt_objectname = 1;
+    public final static int ftt_subquery = 2;
+    public final static int ftt_tableExpr = 3;
+    public final static int ftt_join = 4;
+    public final static int ftt_function = 5; //sql server
+    public final static int ftt_containsTable = 6; //sql server
+    public final static int ftt_freetextTable = 7;//sql server
+    public final static int ftt_openrowset = 8;//sql server
+    public final static int ftt_openxml = 9;//sql server
+    public final static int ftt_opendatasource = 10;//sql server
+    public final static int ftt_openquery = 11;//sql server
+    public final static int ftt_datachangeTable = 12;//db2
+
+* support this Oracle SQL syntax:
+  alter table testtable modify mycolumn null;
+  
+
+[version Java 1.2.5][2011-04-28]
+* support Oracle partition by range clause:
+
+[version Java 1.2.4][2011-04-26]
+* Fix a bug can't handle Oracle translate function correctly.
+   select fp.id from tab1 fp where trim(translate(fp.val,'-0123',' ')) is null
+
+[version Java 1.2.3]
+* query size limitation in trial version was increased to 10000 characters which is adequate to evaluate for the most sql script.
+* support this oracle sql syntax:
+  alter table testtable modify (mycolumn  null); 
+
+
+[version Java 1.2.1][2011-04-19]
+* support float constant in oracle like 1.57F
+* support oracle create table sytnax like this:
+	create table myTable (
+		myColumn number  default null null
+	);
+
+
+[Java version 1.2.0][2011-04-14]
+* rewrite all demos.
+* add some public getter functions of TAlterTableOption.
+* [changes]
+   
+   replace following integer constant with enum type: EJoinType
+
+    // join type
+    public static int join_cross = 1;
+    public static int join_natural = 2;
+    public static int join_full = 3;
+    public static int join_left = 4;
+    public static int join_right = 5;
+    public static int join_fullouter = 6;
+    public static int join_leftouter = 7;
+    public static int join_rightouter = 8;
+    public static int join_inner = 9;
+    public static int join_crossapply = 10;
+    public static int join_outerapply = 11;
+    public static int join_straight = 12;
+    public static int join_union = 11;
+    public static int join_nested = 20;
+    public static int join_natural_left = 30; //mysql
+    public static int join_natural_right = 32; //mysql
+    public static int join_natural_leftouter = 34; //mysql
+    public static int join_natural_rightouter = 36; //mysql
+
+   replace following integer constant with enum type: EConstraintType
+
+    // constraint type
+    public final static int constraint_type_notnull = 1;
+    public final static int constraint_type_unique = 2;
+    public final static int constraint_type_primary_key = 3;
+    public final static int constraint_type_foreign_key = 4;
+    public final static int constraint_type_check = 5;
+    public final static int constraint_type_reference = 6;
+    public final static int constraint_type_default = 7; // valid in sql server
+    public final static int constraint_type_index = 8; //mysql
+    public final static int constraint_type_key = 9; //mysql
+
+    public final static int constraint_type_fake_null = 8;
+    public final static int constraint_type_fake_collate = 9;
+    public final static int constraint_type_fake_identity = 10;
+    public final static int constraint_type_fake_rowguidcol = 11;
+    public final static int constraint_type_fake_auto_increment = 12 ; //mysql
+    public final static int constraint_type_fake_comment = 13 ; //mysql
+    public final static int constraint_type_fake_db2 = 14 ; //db2
+
+
+   replace following integer constant with enum type: EAlterTableOptionType
+
+   // TLzAlterTableOptionType
+    public final static int atoAddColumn = 0;
+    public final static int atoModifyColumn = 1;
+    public final static int atoAlterColumn = 2;
+    public final static int atoDropColumn = 3;
+    public final static int atoSetUnUsedColumn = 4;
+    public final static int atoDropUnUsedColumn = 5;
+    public final static int atoDropColumnsContinue = 6;
+    public final static int atoRenameColumn = 7;
+    public final static int atoChangeColumn = 8;
+    public final static int atoRenameTable = 9;
+    public final static int atoAddConstraint = 10;
+    public final static int atoAddConstraintIndex  = 11;
+    public final static int atoAddConstraintPK = 12;
+    public final static int atoAddConstraintUnique = 13;
+    public final static int atoAddConstraintFK = 14;
+    public final static int atoModifyConstraint = 15;
+    public final static int atoRenameConstraint = 16;
+    public final static int atoDropConstraint = 17;
+    public final static int atoDropConstraintPK = 18;
+    public final static int  atoDropConstraintFK = 19;
+    public final static int  atoDropConstraintUnique = 20;
+    public final static int  atoDropConstraintCheck = 21;
+    public final static int  atoDropConstraintPartitioningKey = 22;
+    public final static int  atoDropConstraintRestrict = 23;
+    public final static int  atoDropConstraintIndex = 24;
+    public final static int  atoDropConstraintKey = 25;
+    public final static int  atoAlterConstraintFK = 26;
+    public final static int  atoAlterConstraintCheck = 27;
+    public final static int  atoCheckConstraint = 28;
+
+    public final static int  atoOraclePhysicalAttrs  = 29;
+    public final static int   atoOracleLogClause = 30;
+    public final static int  atoOracleTableP = 31;
+    public final static int  atoMssqlEnableTrigger = 32;
+    public final static int  atoMySQLTableOptons = 33;
+    public final static int  atoDb2PartitioningKeyDef = 34;
+    public final static int  atoDb2RestrictOnDrop = 35;
+    public final static int  atoDb2Misc = 36;
+    public final static int  atoUnknown = 50;
+
+[.NET version 2.0.9][2011-04-13]
+* TSourceToken.Location can be used to check which clause a column belongs to.
+*	datepart argument in DATEADD, DATENAME,DATEDIFF,DATEPART function 
+  wouldn't be recognized as a column name.
+
+
+[Java version 1.1.12][2011-04-12]
+* MySQL, add syntax support for natual left join,
+  natual left outer join,natual right join,natual right outer join
+
+[Java version 1.1.11][2011-04-08]
+* able to find out what clause a TObjectName belongs to.
+* [changes]introduce a new enum: ESqlClause replace following integer constant in TBaseType
+    public final static int unknownClause = 0;     
+    public final static int selectClause = 1;
+    public final static int whereClause = 2;
+    public final static int havingClause = 3;
+    public final static int groupbyClause = 4;
+    public final static int orderbyClause = 5;
+    public final static int joinCondition = 6;
+    public final static int joinClause = 7;
+    public final static int hierarchicalClause = 8;
+    public final static int computeClause = 9;
+    public final static int topClause = 10;
+    public final static int outputClause = 11;
+    public final static int loc_deletestmt = 12;
+    public final static int loc_updatestmt = 13;
+    public final static int loc_insertstmt = 14;
+    public final static int updateSetClause = 15;
+    public final static int insertColumnClause = 16;
+    public final static int insertValuesClause = 17;
+    public final static int intoClause = 18;
+    public final static int qualifyClause = 19;
+    public final static int sampleClause = 20;
+    public final static int teradataWithClause = 21;
+    public final static int limitClause = 22;
+    public final static int valueClause = 23;
+
+* support Oracle MULTISET operator
+
+
+[Java version 1.1.10][2011-04-06]
+* support Oracle translate function, qualified type name in Oracle sql.
+* support Oracle treat function.
+* support Oracle extract(XML) function, introduce new funtion type: TFunctionCall.fntExtractXML
+
+
+[Java version 1.1.9]
+* support Oracle syntax like this:
+	update zzz
+	set (id) = (select 1, 'Test' from dual);
+	
+* Type keyword can be column name in update statement.
+* fix a bug can't handle comment like this where clause:  2= 1/*Comment*/+1;
+* support deterministic keyword in function declaration.
+* support java language call specification in plsql function declaration.
+* support => operator in open statement
+* support inner procedure in procedure declaration of Oracle PLSQL
+
+
+[.NET version 2.0.7]
+* Fix a bug that SQL statement inside plsql block will be visited twice when iterate SQL statement using visitor pattern.
+
+[Java version Java 1.1.7]
+* Fix a bug that not handle set/create index/alter table statement in sql server block.
+
+[.NET version 2.0.6]
+* [2011-03-30][oracle, format option] gfmtopt.BEStyle_Function_BodyIndent was replaced by BEStyle_BlockIndentSize
+
+
+[Java version 1.1.3][2011-03-16]
+* Introduce new class: TBlockSqlStatement: base class of all sql statement class that includes multiple sql statement.
+* Introduce new class: TStoredProcedureSqlStatement: base class of all stored procedure class such as create function/procedure/trigger
+* Introduce new class: TOracleStoredProcedureSqlStatement: base class of all oracle stored procedure function/procedure/trigger/package/anonymous block
+* [2011-03-10][MySQL] Support Full-Text Search Functions, Match...AGAINST,
+
+
+[.NET version 2.0.5][2011-03-08]
+* RTF output, when keep layout, fix a bug can't preserve space before linebreak.
+* [2011-03-23] Add support for MS Access transform, parameters statement
+
+
+[java version v1.1.3][2011-03-10]
+* Support MySQL Full-Text Search Functions, Match...AGAINST
+
+[java version v1.1.2][2011-03-08]
+* SQL Server keyword can't be column name.
+* Add TAliasClause.getColumns() to get columns in alias clause like this:
+ as alias_name(column1,column2)
+
+[java version v1.1.1][2011-03-03]
+* add a demo to illustrate how to use sql parser to prevent sql injection.
+* view alias name in create view is available in Oracle, sql server, DB2 and MySQL.
+* change class name from 
+	TOracleViewAliasClause to TViewAliasClause
+	TOracleViewAliasItemList to TViewAliasItemList
+	TOracleViewAliasItem to TViewAliasItem
+
+*	change value of enum ENodeType from 	
+	T_OracleViewAliasItem to T_ViewAliasItem
+	T_OracleViewAliasItemList to T_ViewAliasItemList
+	T_OracleViewAliasClause to T_ViewAliasClause
+
+* fix a bug that expression will be traversed in-correctly in multitimes when call TExpression.postOrderTraverse
+* fix a bug can't handle comment like this:
+	SELECT a,b /*--*/ FROM YYY
+
+version 2.0.4 (2011-02-23)
+* Support BEGIN;...END; syntax of SQL Server. 
+* Add 3 new format options: gfmtopt.expr_parenthesis_innewline, gfmtopt.expr_remove_redundant_brackets,gFmtOpt.Insert_Parenthesis_in_separate_line 
+* Format comment in parameters declaration of stored procedure was enhanced 
+* Having clause before group by clause in select statement was supported. 
+* Syntax like this in PL/SQL was supported: Insert into g_price_marginal_rule values marginal 
+* Support qualified name like this: dbo.##BondDetail2. 
+* Fully support of SQL Server truncate table. 
+* Tested on .NET framework 4, and fixed a minor bug. 
+* Add a new function lzbasetype.AutoDetectCharacterSet to detect sql file encoding. 
+* Easy to check what's type of sql statement those class were represented by using 
+ SqlStatementType of TMssqlIfElse,TMssqlCreateprocedure, TMssqlCreatefunction and TMssqlCreatetrigger. 
+ 
+* Introduce a new class: TMssqlDropProcedure 
+* Sql statement in exec_string can be fetch via execute statement's ChildNodes. 
+* Add a new demo: affectedObject to determine affected database objects in sql file. 
+* refine alter option in alter table statement. and add some new code in analyzscript to illustrate how to use this option. 
+* add new property: TLzAlterTableOption._ndColumnName 
+* remove TLzAlterTableOption.ColumnConstraintList 
+* Introduce a new class: TLz_AttrList, represents a list of qualified name 
+* TLzConstraint.ConstraintColumnList was removed, and replaced with ColumnNameList 
+* New property: TLz_Attr.sortToken, this property was used when column names in 
+primary key/foreign key had sort(asc,desc) information.(this is for sql server only) 
+
+* fix a bug that missing distinct/top clause information in TSelectSqlStatement.GetAsXmlText 
+* [sql server] full support of SQL Server Drop Index statement, and add demo code in analyzescript to show how to use TMssqlDropIndex. 
+
+
+[java version v1.1.0][2011-02-20]
+* 10 times faster if create more than 100 instance of SQL Parser.
+* All getRightOperand() and getLeftOperand() should return type TExpression if not null, 
+	so we remove TParseTreeNode getLeftNode(), TParseTreeNode getRightNode()
+	TInExpr and TExprList shoud be leaf node of a new TExpression
+* Able to remove colums from select list, and rebuild sql.
+* Able to add new column to select list, and rebuild sql.
+* Able to add where clause to select statement.
+* Able to add order by item, the order by clause must be already exists.
+* Able to remove an order by item,remove all items means remove the whole order by clause.
+* Improved API of PL/SQL loop statement.
+* Parser don't recover from FROM keyword.
+
+Java Version 1.0.0 (2011-01-06)
+* This is the first official released Java version as stable as .NET version, support Oracle, SQL Server, DB2, MySQL, Access, and Teradata. 
+  All features in .NET version were available except sql formatter. 
+
+
+version 2.0.0 (2011-01-06)
+* Change license mode to enterprise edition license(support all following database: oracle, sql server, db2, mysql, 
+   and enable all developers in a physical site to use this library) and professional edition 
+   license(support one of following database: oracle, sql server, db2, mysql, and enable one developer in a physical site to use this library). 
+* If you need to distribute this library together with your application to end users, please contact sales@sqlparser.com for a distribution license. 
+
+* [Oracle] support comment on statement. 
+* [Oracle] support create synonym statement. 
+* [Oracle] support compress/uncompress clause in physical_properties. 
+* [Oracle] able to get sequence name and options. 
+* [internal] adjust max_matches value to reduce usage of memory, improve performance. 
+
+
+version 1.12.17 (2010-12-02)
+* introduce a new property: TLzField.DisplayName, this property returns alias name of
+  a column if any, otherwise, return column name.
+* fix bug that TLzField.Name returns a dot before fieldname.
+* support "not for replication" clause in IDENTITY property of sql server.
+* intorduce 9 format options
+	gFmtOpt.IntoClauseInNewline
+	gFmtOpt.WhereClauseInNewline
+	gFmtOpt.GroupByClauseInNewline
+	gFmtOpt.OrderByClauseInNewline
+	gFmtOpt.HavingClauseInNewline
+	gFmtOpt.Update_Columnlist_Style 
+	gFmtOpt.LinefeedsAndOr_option
+		control and/or keyword in condition before newline or after newline or no linebreak.
+ 	gFmtOpt.Select_Groupby_Style
+	gFmtOpt.Select_Orderby_Style
+
+* Handle "TOP X" the same as "DISTINCT"
+* [sql server] support Sparse Columns of sql server 2008.
+* [sql server] support SQL Server 2008 new introduced several extensions to the GROUP BY clause:
+	GROUPING SETS, CUBE, and ROLLUP subclauses of the GROUP BY clause and the GROUPING_ID function.
+* [sql server] support delete in merge not matched clause.
+* [sql server] support sql server 2008 HIERARCHYID Data Type
+* [sql server] support Compound Assignment Operators
+* [sql server] support new sql server 2008 spatial function like: ([geom].Reduce(10)).STAsText()
+* [sql server] support the geometry and geography feature of SQL Server 2008.
+* [oracle] support oracle XMLQUERY sytnax.
+* able to control format of expression in case expression.
+* better support to format case expression.
+* < character in html output not show correctly.
+
+
+version 1.12.15
+* fix bug: can't process empty block in SQL Server like this:
+	BEGIN CATCH         
+	END CATCH         
+
+* support SQL Server kill statement.
+* new tokentype: ttUserCustomized.
+* new element of TLzHighlightingElement: sfkUserCustomized
+* new event handle: TGSqlParser.BeforeGenerateFormattedSQL
+	will be fired before generate formatted SQL when a event hanlder was set.
+	it can be useful if you want to change color of some source token work together with ttUserCustomized,sfkUserCustomized
+	please check customizedColor demo shipped together with this library to see how to customize
+	color of certain tokens in RTF and HTML output.
+	
+* rtf output support multibytes character set language like chinese, korean.
+* fix a bug in TLzCaseExpression.GetAsXmlText.
+
+
+version 1.12.14
+* sql formatter ugly mode, when convert to single line, remove extra spaces in output sql.
+* support ; character before CTE of SQL Server.
+
+version 1.12.13
+* support following syntax:
+	IF Update (OrderTypeID) BEGIN
+	end
+	else
+	begin
+	end
+
+* able to recognize table alias in delete, update statement correctly.
+	update A set A.text='x'
+	from myTable A
+	join otherTable B on A.Id=B.Id
+	
+	delete  A
+	from  myTable A
+	join otherTable B on A.Id=B.Id
+
+* support readonly keyword in variable declare of SQL Server.
+* support string like this of ms access: #4/1/2008 3:09:29 PM#
+* fix a bug that can't find hint in select after comment like this:
+	SELECT /* TEST SQL */ /*+ FULL(EMP) */ EMPNAME FROM EMP WHERE EMPID = 1;
+	
+* can't handle if statement correctly if there is a case...end(with else) expression inside.
+* \ character is not a escape char of oracle string literal.
+* fix a bug that remove space around DEFAULT keyword in following sql when WSPadding_OperatorArithmetic is false.
+	PROCEDURE report_create (v_ts IN DATE, p_msg IN VARCHAR2,p_file_mode IN VARCHAR2 DEFAULT 'A');
+
+* subtype keyword can be a qualified name in plsql.
+* column datatype can't be empty in create table statement.
+* default and null keyword can't be a datatype name.
+* support connect_by_root unary operator in Oracle.
+* able to detect syntax error of select in cursor declare of plsql.
+* support mod operator in plsql.
+
+version 1.12.11
+* support qualified name of SQL Server pivot column.
+* bug of processing unpivot clause in from clause was fixed.
+* qualified data type name was supported.
+* support variable of LANGUAGE @language in CONTAINSTABLE clause.
+* output can be table alias in insert statement.
+* html output was checked as XHTML 1.0 Strict.
+* when convert SQL to vb and vb string builder, change escape char of " from \ to ".
+* able to handle 0X8000 literal.
+* able to handle 
+	(SELECT Name, ListPrice FROM Production.Product WHERE ProductID = 720)
+	in values clause of insert statement like this:
+	
+	INSERT INTO dbo.MyProducts (Name, ListPrice)
+	VALUES ('Helmet', 25.50),
+    	   ('Wheel', 30.00),
+       	(SELECT Name, ListPrice FROM Production.Product WHERE ProductID = 720);
+
+* new format option: gfmtopt.AlignJoinWithFromKeyword.
+* partially support of sql server merge statement.
+* MySQL stored procedure such as create function/procedure/trigger can be ended by string like "end;"
+* start with and connect by clause were formatted correctly.
+* support return keyword in declare statement of MySQL.
+* fix a bug when select_columnlist_style = asWrapped, following SQL is not formatted correctly.
+	SELECT last_name,a+(select a,b from c)
+	FROM   employees
+
+* fix a bug that can't process format option correctly: gfmtopt.FunctionCall_Parameters_Style = stacked
+* better support to format multiline comments in html and rtf output.
+* new format option: gfmtopt.FunctionCall_Parameters_Style, gfmtopt.FunctionCall_Parameters_Comma control parameters layout of function call.
+* new foramt option: gfmtopt.NoEmptyLinesBetweenMultiSetStmts, able to control empty lines between consecutive set/declare statements in sql server.
+* Unify the way to access statements in plsql statement (TPlsqlStatement) by visiting childnodes.
+* fix a bug that can't hanlde literal like '%\_INF'.
+* support concat operator in select list expression of DB2.
+* Change default value of format option case_identifier from  coLowercase to coNoChange;
+* IDENTITY keyword can't be used as typename, but gsp can't detect this error.
+* right keyword can be arguments of function of Oracle.
+* year keyword can be field name of TYPE.
+* year keyword can be plsql column name like tablename.year%type
+* RIGHT keyword can be column name in into clause of insert statement of Oracle.
+* better support to format multiline comments.
+* support dbms_lobs.open() function of Oracle.
+* support last_value, first_value function of Oracle.
+
+version 1.12.7
+* execute statement can be at the top level of plsql script.
+* Access Violation to process this SQL which is syntax invalid.
+	if select object_id('cr_trd_me_110') is not null
+  	drop procedure cr_trd_me_110
+
+
+version 1.12.6
+* improved: yyaction in lzyaccXXXsql unit was splitted into small functions by program utils\split_yyaction\split_yyaction.exe
+	this speed up .NET version under vista (it takes 10 seconds to parse a simple SQL before, now it's about 2-3 seconds)
+
+
+version 1.12.5
+* [oracle] fixed: support this syntax: ALTER TABLE _name_of_table MODIFY _name_of_field NUMBER(5,0)
+* [lex] improved: improve max_matches from 1024*20*10 to 1024*20*10*10, able to deal big quoted string.
+* [sybase] improved: +1 was supported like this: EXEC Proc "param1", "param2", +1
+* [sybase] improved: multitable in drop table.
+* [mysql] fixed: decimal datatype was supported in cast function.
+* [oracle] fixed: update clause and insert clause can be optional in merge statement.
+* [oracle] improved: Able to recovery from a keyword error from plsql by using OnParserTokenError event.
+
+
+version 1.12.4
+* fixed: Merge statement table alias is optional.
+* support syntax: FOR R1 IN C1() LOOP, no parameters in C1().
+* type keyword can be in function parameters, variable name in for clause.
+* support syntax: WHEN NOT MATCHED THEN is preceded by WHEN MATCHED THEN  in merge statement.
+* comment keyword can be used in typename
+* supported syntax: Lob_storage_clause in column_properties of create_table_properties.
+* NUMBER(*,0) was supported in create table statement of Oracle.
+* pipe row statement is supported in create function statement.
+* pipedlined is supported in create function statement.
+* improved: all DoParseStatement, DoParse functions return value.
+* improved: all parse error messages log into top level tcustomsqlstatement.
+* partially support log clause of create table statement.
+* support pipedlined in return type of function in create package
+* supported following Oracle sql syntax:
+	create table tablename tablespace tn nologging parallel as select f from t
+	
+[2009-11-24][general] fixed: select statement in create table not indent correctly.
+Remove this duplicate code in p3_linebreak, already exists in p3_subnode
+   if assigned(SelectStmt) then
+    begin
+      selectStmt.ppv3(self,true,gfmtopt.IndentLen,0,nil);
+    end;
+
+version 1.12.3
+* fixed: TMssqlIfElse.ProcessFuncExpr, infinite loop cause program halt for some sql.
+* support for "if not update(colid)" in create trigger.
+
+
+version 1.12.2
+* method_specifier in create procedure was supported.
+
+version 1.12.1
+* able to beautify query inside openrowset function.
+* --begin_no_format align with previous sql statement.
+* fixed: rtf output can not handle multiline string correctly.
+* fixed: emptylines between multiline comments and sql statement not handle correctly.
+
+
+version 1.12.0
+* able to show line number of formatted sql.
+* better support for AndOrUnderWhere format option.
+* support recompile hint in option of SQL Server.
+	select top 10 * from aa	option(recompile)
+* mssql xml method query(),value(),exist(),modify(),nodes() keep lowercase no matter what case option was choosen for function case option.
+* sql formatter, from keyword in from clause of update statement not in newline.
+* sql formatter, into clause start in a newline.
+* better support for --begin_no_format, --end_no_format format directive.
+
+version 1.11.1
+* support this SQL syntax of Sybase
+	SELECT 
+		sinkingtable.Principal 
+	FROM 
+		kplus..BondsSchedule sinkingtable(INDEX BondsScheduleIdx1) 
+
+* able to handle drop table statement of DB2.
+* when emptyline=mergeintoone, insertblanklineinbatchsqls is false, emplty lines after
+select in create function is removed but not merge into one.
