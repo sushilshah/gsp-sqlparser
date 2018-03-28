@@ -26,17 +26,18 @@ Or you can download more demos here: http://www.dpriver.com/blog/list-of-demos-i
 
 
 4. set java environment before compile and run demos, replace java home directory with correct value
-  4.1 open a dos command window, now you at c:\tmp\gsp_java_trial\dist>
+  4.1 open a dos command window, now you at 
+  	```c:\tmp\gsp_java_trial\dist>
 	4.2 set java_home="C:\Program Files\Java\jdk1.5.0_09";
 	4.3 set path=%path%;%java_home%\bin;
-	4.4 set classpath=%classpath%;%java_home%\jre\lib\rt.jar;./gsp.jar
+	4.4 set classpath=%classpath%;%java_home%\jre\lib\rt.jar;./gsp.jar```
 
 5. we compile and run checksyntax demo under demos\checksyntax
-	5.1 javac demos\checksyntax\checksyntax.java
+	```5.1 javac demos\checksyntax\checksyntax.java
 	5.2 create a simple sql file test.sql under c:\tmp\gsp_java_trial\dist with following sample sql:
 		select count(*) from tab
 	5.2 java  demos.checksyntax.checksyntax test.sql
-	5.3 after select a SQL dialect, you will see a message: Check syntax ok!
+	5.3 after select a SQL dialect, you will see a message: Check syntax ok!```
 	
 6. you can compile other demos under c:\tmp\gsp_java_trial\dist\demos
 
